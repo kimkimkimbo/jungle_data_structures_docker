@@ -2,7 +2,10 @@
 
 /* CE1007/CZ1007 Data Structures
 Lab Test: Section A - Linked List Questions
-Purpose: Implementing the required functions for Question 1 */
+Purpose: Implementing the required functions for Question 1 
+사용자에게 입력 받은 정수 하나를 오름차순 정렬 리스트에 삽입하는 것. 삽입이 안 되면 -1 삽입 시 인덱스 번호 반환
+*/
+
 
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -59,6 +62,7 @@ int main()
 		switch (c)
 		{
 		case 1:
+		//정수 입력 받고, 리스트에 삽입 후 달라지 리스트 프린트
 			printf("Input an integer that you want to add to the linked list: ");
 			scanf("%d", &i);
 			j = insertSortedLL(&ll, i);
@@ -66,6 +70,7 @@ int main()
 			printList(&ll);
 			break;
 		case 2:
+		//값과 인덱스 위치 프린트
 			printf("The value %d was added at index %d\n", i, j);
 			break;
 		case 3:
@@ -90,8 +95,61 @@ int main()
 
 int insertSortedLL(LinkedList *ll, int item)
 {
-	/* add your code here */
+	/* j = insertSortedLL(&ll, i);
+	   삽입 안 되면 -1, 삽입되면 인덱스 위치 반환 
+	
+	   1. 중복 값인지 확인
+	   2. 중복 값이 아니라면 삽입 
+	   3. 현재 노드(cur)와 다음 노드(cur->next)의 값을 비교해서
+	      cur->item < item < cur->next->item이 되는 그 중간 자리를 찾아 삽입
+	*/
+
+	ListNode *cur = ll->head;
+
+	// 중복 값 존재 여부 확인 (중복 시 바로 -1 반환)
+	while (cur != NULL)
+	{
+		if (item == cur->item){
+			return -1;  // 중복 발견, 삽입하지 않고 종료
+		}
+		cur = cur->next;
+	}
+
+	// 중복 검사 끝나면 cur는 NULL 상태임
+	// 따라서 다시 리스트 처음으로 초기화 필요
+	cur = ll->head;
+
+	if (ll->head == NULL){
+		// 빈 리스트면 그냥 첫 노드로 삽입해야 함 (안 그러면 아예 삽입 불가)
+		insertNode(ll, 0, item);
+		return 0; 
+	}
+
+	// 맨 앞에 삽입해야 할 경우 (맨 처음 값이 새 아이템보다 클 때)
+	if (ll->head->item > item ){
+		insertNode(ll, 0, item);
+		return 0;  // 0번 인덱스에 삽입했으니 0 반환
+	}
+
+	int index = 0;
+	while (cur->next != NULL)
+	{
+		// 중간에 넣어야 할 위치 탐색
+		if (cur->item < item && item < cur->next->item){
+			// 삽입 시 index 위치가 아니라 index+1 위치에 넣어야 함
+			insertNode(ll, index + 1, item);
+			return index + 1;  // 삽입 후 즉시 반환해서 중복 삽입 방지
+		}
+		cur = cur->next;
+		++index;
+	}
+
+	// 마지막 노드까지 돌았는데도 삽입 위치를 못 찾았으면
+	// 리스트의 가장 뒤에 삽입 (index는 마지막 노드 인덱스)
+	insertNode(ll, ll->size, item);
+	return ll->size - 1;  // 삽입 후 가장 마지막 인덱스 반환
 }
+
 
 ///////////////////////////////////////////////////////////////////////////////////
 

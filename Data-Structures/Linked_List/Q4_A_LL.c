@@ -2,15 +2,23 @@
 
 /* CE1007/CZ1007 Data Structures
 Lab Test: Section A - Linked List Questions
-Purpose: Implementing the required functions for Question 4 */
+Purpose: Implementing the required functions for Question 4 목적: 문제 4번에서 요구되는 함수들을 구현하는 것 */
+
+/* 짝수를 리스트 뒤로 보내라 
+void moveEvenItemsToBack(LinkedList *ll) <- 프로토타입 함수
+예시: 1, 3, 5 -> 1, 3, 5
+2, 4, 6 -> 2, 4, 6
+2, 3, 4, 7, 15, 18 -> 3, 7, 15, 2, 4, 18
+*/
 
 //////////////////////////////////////////////////////////////////////////////////
 
 #include <stdio.h>
-#include <stdlib.h>
+#include <stdlib.h> //standard library
 
 //////////////////////////////////////////////////////////////////////////////////
 
+//typedef 별칭, struct 구조체 타입
 typedef struct _listnode
 {
 	int item;
@@ -84,10 +92,52 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
-void moveEvenItemsToBack(LinkedList *ll)
+void moveEvenItemsToBack(LinkedList *ll) //짝수 노드를 뒤로 옮기는 함수
 {
-	/* add your code here */
+    if (ll == NULL || ll->head == NULL) return; //NULL 이면 그 뒤 작업들에서 에러 나기 때문에 끝
+
+    ListNode *cur = ll->head; 
+
+	// 새 리스트 구조체 할당 및 반드시 초기화 필요!
+    // 초기화 안 하면 구조체 내 멤버에 쓰레기 값이 들어가서 이상 동작 발생 가능
+    LinkedList *oddList = malloc(sizeof(LinkedList)); 
+    oddList->head = NULL;
+    oddList->size = 0;
+
+    LinkedList *evenList = malloc(sizeof(LinkedList));
+    evenList->head = NULL;
+    evenList->size = 0;
+ 
+    while (cur != NULL)
+    {
+        if(cur->item % 2 == 0){
+            insertNode(evenList, evenList->size, cur->item); //짝수 리스트 생성
+        }
+        else{
+            insertNode(oddList, oddList->size, cur->item); //홀수 리스트 생성
+        }
+        cur = cur->next; //다음 노드 보기
+    }
+
+	//홀수 + 짝수 붙이기
+    if (oddList->head == NULL){ //홀수가 없을 때
+        ll->head = evenList->head; // 홀수 리스트가 비어있으면 짝수 리스트를 머리로 세팅
+        ll->size = evenList->size;
+    } else {
+        ListNode *tail = oddList->head; 
+        while (tail->next != NULL)
+        {
+            tail = tail->next; // 홀수 리스트 끝 값을 taill에 넣기
+        }
+        tail->next = evenList->head; //홀수 리스트 끝 노드 다음에 짝수 머리 연결
+        ll->head = oddList->head; //ll 헤드는 홀수
+        ll->size = oddList->size + evenList->size; //둘을 합친 사이즈
+    }
+
+    free(oddList); //안 하면 메모리 누수됨!
+    free(evenList);
 }
+
 
 ///////////////////////////////////////////////////////////////////////////////////
 
