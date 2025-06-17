@@ -112,7 +112,30 @@ int main()
 
 void reverse(Queue *q)
 {
-/* add your code here */
+	// Stack s;
+	// s.ll.head = NULL;
+	// s.ll.size = 0;
+	
+
+	// while (!isEmptyQueue(q))
+	// {
+	// 	push(&s,dequeue(q));
+	// }
+
+	// while (!isEmptyStack(&s))
+	// {
+	// 	enqueue(q, pop(&s));
+	// }
+	
+	//base case
+	if (isEmptyQueue(q)) {
+		return 0;
+	}
+
+	int item = dequeue(q); //값 꺼내서
+	reverse(q); //재귀 돌리고
+	enqueue(q,item); //다시 넣기
+	 
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

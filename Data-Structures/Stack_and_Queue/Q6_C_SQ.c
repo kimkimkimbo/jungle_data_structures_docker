@@ -111,7 +111,18 @@ int main()
 
 void removeUntil(Stack *s, int value)
 {
-/* add your code here */
+/* (removeUntilStack) Write a C function removeUntilStack() that pops all values off a
+stack of integers until the first occurrence of the chosen value.
+for loop can break like while loop
+remeber to consider s->ll.size == 0
+The function prototype is given as follows:
+void removeUntilStack(Stack *s, int value);
+Given a stack (1, 2, 3, 4, 5, 6, 7) with the topmost number displayed on the left, calling
+removeUntilStack() with value = 4 will produce the stack (4, 5, 6, 7).
+Given a stack (10, 20, 15, 25, 5) with the topmost number displayed on the left, calling
+removeUntilStack() with value = 15 will produce the stack (15, 25, 5). */
+
+
 }
 
 //////////////////////////////////////////////////////////////////////////////////

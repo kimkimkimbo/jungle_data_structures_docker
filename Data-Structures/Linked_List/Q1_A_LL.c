@@ -101,7 +101,7 @@ int insertSortedLL(LinkedList *ll, int item)
 	   1. 중복 값인지 확인
 	   2. 중복 값이 아니라면 삽입 
 	   3. 현재 노드(cur)와 다음 노드(cur->next)의 값을 비교해서
-	      cur->item < item < cur->next->item이 되는 그 중간 자리를 찾아 삽입
+	    cur->item < item < cur->next->item이 되는 그 중간 자리를 찾아 삽입
 	*/
 
 	ListNode *cur = ll->head;

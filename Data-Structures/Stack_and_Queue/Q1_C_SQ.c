@@ -32,13 +32,13 @@ typedef struct _queue
 ///////////////////////// function prototypes ////////////////////////////////////
 
 // You should not change the prototypes of these functions
-void createQueueFromLinkedList(LinkedList *ll, Queue *q);
-void removeOddValues(Queue *q);
+void createQueueFromLinkedList(LinkedList *ll, Queue *q); //LL 요소를 큐에 복사
+void removeOddValues(Queue *q); //
 
-void enqueue(Queue *q, int item);
-int dequeue(Queue *q);
-int isEmptyQueue(Queue *q);
-void removeAllItemsFromQueue(Queue *q);
+void enqueue(Queue *q, int item); //큐에 값 넣기
+int dequeue(Queue *q); //큐에 값 빼기
+int isEmptyQueue(Queue *q); //큐가 null인지 확인
+void removeAllItemsFromQueue(Queue *q); //큐 초기화
 
 void printList(LinkedList *ll);
 ListNode * findNode(LinkedList *ll, int index);
@@ -116,12 +116,29 @@ int main()
 
 void createQueueFromLinkedList(LinkedList *ll, Queue *q)
 {
-	/* add your code here */
+    // 1. 먼저 큐가 비어 있지 않을 수 있으므로 초기화 필요
+    // Remember to empty the queue at the beginning
+    removeAllItemsFromQueue(q);
+
+    // 2. 연결 리스트를 순회하면서 각 노드의 값을 큐에 삽입
+    // 리스트의 head부터 시작해서 끝까지 탐색
+    ListNode *temp = ll->head;
+
+    // 3. while문으로 연결 리스트를 끝까지 순회
+    while (temp != NULL)
+    {
+        // 현재 노드의 값을 큐에 enqueue
+        enqueue(q, temp->item);  // 큐는 FIFO 구조이므로 순서 유지 중요
+
+        // 다음 노드로 이동
+        temp = temp->next;
+    }
+
 }
 
-void removeOddValues(Queue *q)
-{
-	/* add your code here */
+
+void removeOddValues(Queue *q){
+	
 }
 
 //////////////////////////////////////////////////////////////////////////////////

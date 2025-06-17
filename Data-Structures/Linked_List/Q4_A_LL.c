@@ -98,8 +98,6 @@ void moveEvenItemsToBack(LinkedList *ll) //짝수 노드를 뒤로 옮기는 함
 
     ListNode *cur = ll->head; 
 
-	// 새 리스트 구조체 할당 및 반드시 초기화 필요!
-    // 초기화 안 하면 구조체 내 멤버에 쓰레기 값이 들어가서 이상 동작 발생 가능
     LinkedList *oddList = malloc(sizeof(LinkedList)); 
     oddList->head = NULL;
     oddList->size = 0;
@@ -107,7 +105,7 @@ void moveEvenItemsToBack(LinkedList *ll) //짝수 노드를 뒤로 옮기는 함
     LinkedList *evenList = malloc(sizeof(LinkedList));
     evenList->head = NULL;
     evenList->size = 0;
- 
+
     while (cur != NULL)
     {
         if(cur->item % 2 == 0){
@@ -134,9 +132,12 @@ void moveEvenItemsToBack(LinkedList *ll) //짝수 노드를 뒤로 옮기는 함
         ll->size = oddList->size + evenList->size; //둘을 합친 사이즈
     }
 
+
     free(oddList); //안 하면 메모리 누수됨!
     free(evenList);
 }
+
+
 
 
 ///////////////////////////////////////////////////////////////////////////////////

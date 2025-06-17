@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/kim/Desktop/data_structures_docker/Data-Structures/Stack_and_Queue/Q3_C_SQ'
+relocations:     []
+...

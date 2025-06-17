@@ -113,7 +113,21 @@ int main()
 
 void createStackFromLinkedList(LinkedList *ll, Stack *s)
 {
-    /* add your code here */
+     // 1. 먼저 stack 비어 있지 않을 수 있으므로 초기화 필요
+    removeAllItemsFromStack(s);
+
+    // 2. 연결 리스트를 순회하면서 각 노드의 값을 stack에 삽입
+    // 리스트의 head부터 시작해서 끝까지 탐색
+    ListNode *temp = ll->head;
+
+    // 3. while문으로 연결 리스트를 끝까지 순회
+    while (temp != NULL)
+    {
+		push(s,temp->item);
+    
+        // 다음 노드로 이동
+        temp = temp->next;
+    }
 }
 
 void removeEvenValues(Stack *s)

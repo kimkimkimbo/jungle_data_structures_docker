@@ -99,9 +99,22 @@ int main()
 //////////////////////////////////////////////////////////////////////////////////
 
 int countOneChildNodes(BTNode *node)
-
 {
-    /* add your code here */
+
+    if (node == NULL) return 0;
+
+    int cnt = 0;
+
+    if ((node->left != NULL && node->right == NULL) || (node->left == NULL && node->right != NULL)){
+        cnt = 1;
+    }
+
+    //printf("주소값: left %p\n", (void *)node->left); 
+    cnt += countOneChildNodes(node->left);
+    //printf("주소값: right %p\n", (void *)node->right); 
+    cnt += countOneChildNodes(node->right);
+    //printf("%d\n",cnt);
+    return cnt;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
